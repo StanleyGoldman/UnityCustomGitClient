@@ -57,9 +57,9 @@ public class CustomGitEditor : EditorWindow
 
     private NPath DetermineInstallationPath()
     {
-        var scriptPath = Application.dataPath.ToNPath().Parent.Combine(AssetDatabase.GetAssetPath(this).ToNPath());
-        Debug.Log("Installation Path" + scriptPath.Parent);
-        return scriptPath.Parent;
+        var assetPath = AssetDatabase.GetAssetPath(this).ToNPath();
+        var applicationDataPath = Application.dataPath.ToNPath();
+        return applicationDataPath.Parent.Combine(assetPath).Parent;
     }
 
     void OnGUI()
