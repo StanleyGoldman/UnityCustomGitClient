@@ -57,20 +57,10 @@ public class CustomGitEditor : EditorWindow
 
     private NPath DetermineInstallationPath()
     {
-        // Juggling to find out where we got installed
-        var shim = CreateInstance<RunLocationShim>();
-        var script = MonoScript.FromScriptableObject(shim);
-        var scriptPath = Application.dataPath.ToNPath().Parent.Combine(AssetDatabase.GetAssetPath(script).ToNPath());
-        DestroyImmediate(shim);
+        var scriptPath = Application.dataPath.ToNPath().Parent.Combine(AssetDatabase.GetAssetPath(this).ToNPath());
+        Debug.Log("Installation Path" + scriptPath.Parent);
         return scriptPath.Parent;
     }
-
-    class RunLocationShim : ScriptableObject
-    {
-    }
-
-    public virtual void OnDisable()
-    { }
 
     void OnGUI()
     {
@@ -81,8 +71,4 @@ public class CustomGitEditor : EditorWindow
             gitClient.AddAll().Then(gitClient.Commit(DateTime.Now.ToString(), string.Empty)).Start();
         }
     }
-
-    void Update () {
-		
-	}
 }
