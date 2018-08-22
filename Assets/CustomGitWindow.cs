@@ -18,7 +18,10 @@ public class CustomGitEditor : EditorWindow
     public void OnEnable()
     {
         if (!initialized)
+        {
             InitGitClient();
+            initialized = true;
+        }
     }
 
     private void InitGitClient()
